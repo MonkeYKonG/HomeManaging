@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFireModule } from 'angularfire2';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 export const firebaseConfig = {
     apiKey: "",
@@ -39,7 +40,8 @@ export const firebaseConfig = {
     providers: [
 	StatusBar,
 	SplashScreen,
-	{provide: ErrorHandler, useClass: IonicErrorHandler}
+	{provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider
     ]
 })
 export class AppModule {}
