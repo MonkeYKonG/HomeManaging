@@ -11,8 +11,8 @@ export class HomePage {
 
     items: FirebaseListObservable<any[]>;
     
-    constructor(public navCtrl: NavController, db: AngularFireDatabase) {
-	this.items = db.list('/items');
+    constructor(public navCtrl: NavController) {
+	//this.items = db.list('/items');
     }
     
 }

@@ -13,11 +13,11 @@ import { AngularFireModule } from 'angularfire2';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 export const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    databaseUrl: "",
+    apiKey: "AIzaSyByKxQ1GchNLJwEyb4o71CyuprbVEKXhr0",
+    authDomain: "homemanaging-5cc3f.firebaseapp.com",
+    databaseUrl: "https://homemanaging-5cc3f.firebaseio.com",
     storageBucket: "",
-    messagingSenderId: ''
+    messagingSenderId: '830128883789'
 };
 
 @NgModule({

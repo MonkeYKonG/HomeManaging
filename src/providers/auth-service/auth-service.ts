@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Observable } from '@angular/core';
+import * as firebase from 'firebase/app';
+
 /*
   Generated class for the AuthServiceProvider provider.
 
