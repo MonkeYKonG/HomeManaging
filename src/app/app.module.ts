@@ -5,6 +5,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { CalendarPage } from '../pages/calendar/calendar';
+import { ShopListPage } from '../pages/shop-list/shop-list';
+import { CreateShopListPage } from '../pages/shop-list/subpages/create-shop-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,7 +30,10 @@ const firebaseConfig = {
     declarations: [
 	MyApp,
 	HomePage,
-	ListPage
+	ListPage,
+	CalendarPage,
+	ShopListPage,
+	CreateShopListPage
     ],
     imports: [
 	BrowserModule,
@@ -40,7 +46,10 @@ const firebaseConfig = {
     entryComponents: [
 	MyApp,
 	HomePage,
-	ListPage
+	ListPage,
+	CalendarPage,
+	ShopListPage,
+	CreateShopListPage
     ],
     providers: [
 	StatusBar,
