@@ -14,8 +14,7 @@ import { ShopListPage } from '../pages/shop-list/shop-list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-    //rootPage: any = HomePage;
-    rootPage: any = ShopListPage;
+    rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
