@@ -14,32 +14,26 @@
 
 
 <ion-content padding>
-    
+  <ion-list>
+    <button ion-item *ngFor="let item of items | async" (click)="presentModal()">
+      {{ item.$key }}
+    </button>
+  </ion-list>
   <ion-row>
     <ion-col col-9>
-      <ion-item>
-	<ion-input type="text" [(ngModel)]="newItem" placeholder="New Shopping item">
-	</ion-input>
-      </ion-item>
+      
+      <ion-list>
+	<button ion-item *ngFor="let item of test" (click)="openShopList(item)">
+	  {{ item.key }}
+	</button>
+      </ion-list>
+      
       <ion-col>
-	<button ion-button (click)="addItem()">Add!</button>
-	<button ion-button (click)="testFct()">Test</button>
+	<button ion-button (click)="selectNewTitle()">Nouvelle liste</button>
+      </ion-col>
+      <ion-col>
+	<button ion-button (click)="presentModal()">Nouvelle liste</button>
       </ion-col>
     </ion-col>
   </ion-row>
-  
-  <ion-list>
-    <ion-item-sliding *ngFor="let item of items | async">
-      <ion-item>
-	{{ item.$value }}
-	
-	{{ item.$id }}
-      </ion-item>
-      <ion-item-options side="right">
-	<button ion-button color="danger" (click)="removeItem(item.$key)">
-	  <ion-icon name="trash"></ion-icon>
-	</button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
 </ion-content>

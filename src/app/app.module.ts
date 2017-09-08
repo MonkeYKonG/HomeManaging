@@ -7,7 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { ShopListPage } from '../pages/shop-list/shop-list';
-import { CreateShopListPage } from '../pages/shop-list/subpages/create-shop-list';
+import { ShopListDescriptionPage } from '../pages/shop-list/subpages/shop-list-description';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +33,7 @@ const firebaseConfig = {
 	ListPage,
 	CalendarPage,
 	ShopListPage,
-	CreateShopListPage
+	ShopListDescriptionPage
     ],
     imports: [
 	BrowserModule,
@@ -49,7 +49,7 @@ const firebaseConfig = {
 	ListPage,
 	CalendarPage,
 	ShopListPage,
-	CreateShopListPage
+	ShopListDescriptionPage
     ],
     providers: [
 	StatusBar,
