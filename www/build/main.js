@@ -278,6 +278,10 @@ module.exports = webpackAsyncContext;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shop_list_shop_list__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__calendar_calendar__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__memo_memo__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__messages_messages__ = __webpack_require__(405);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -289,17 +293,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
+
+
 var HomePage = (function () {
     function HomePage(navCtrl) {
         this.navCtrl = navCtrl;
     }
     HomePage.prototype.openCalendarPage = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__calendar_calendar__["a" /* CalendarPage */]);
     };
     HomePage.prototype.openShopListPage = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__shop_list_shop_list__["a" /* ShopListPage */]);
     };
     HomePage.prototype.openMemoPage = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__memo_memo__["a" /* MemoPage */]);
     };
     HomePage.prototype.openMessagesPage = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__messages_messages__["a" /* MessagesPage */]);
     };
     return HomePage;
 }());
