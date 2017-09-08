@@ -19,22 +19,27 @@ import { FirebaseListObservable } from 'angularfire2/database';
 export class ShopListDescriptionPage {
 
     title: string;
-    description: string;
+    commentary: FirebaseListObservable<any[]>;
     items: FirebaseListObservable<any[]>;
+
+    //DEBUG
     test = [
 	{name: "banane", quantity: 4, isCheck: true},
 	{name: "chocolat", quantity: 12, isCheck: false}
     ];
+    testComment = [
+	{author: "Alexis", date: "Ven 8 sept", text: "prendre un gros paquet de tresor"},
+	{author: "Justine", date: "Jeu 7 sept", text: "je sais pas quoi mettre"}
+    ]
 
     constructor(public navCtrl: NavController,
 		public navParams: NavParams,
 		public firebaseProvider: FirebaseProvider) {
-	this.items = this.firebaseProvider.getItems("shop-list/liste de test");
-	// ajouter le chemain restant en utilisant le nom de la liste passer en argument
-
-	// DEBUG
-	this.title = "bonjour le monde";
-	this.description = "je suis la description";
+	this.title = navParams.data;
+	this.items =
+	    this.firebaseProvider.getItems("shop-list/" + this.title + "/items/");
+	this.commentary =
+	    this.firebaseProvider.getItems("shop-list/" + this.title + "/commentaty");
     }
     
     ionViewDidLoad() {

@@ -58,7 +58,8 @@ export class ShopListPage {
 		{
 		    text: 'Créer la liste',
 		    handler: data => {
-			this.navCtrl.push(ShopListDescriptionPage);
+			console.log(data);
+			this.navCtrl.push(ShopListDescriptionPage, data.title);
 		    }           
 		}	      
 	    ]
@@ -67,8 +68,7 @@ export class ShopListPage {
     }
 
     openShopList(shop_list) {
-	console.log(shop_list);
-	this.navCtrl.push(ShopListDescriptionPage);
+	this.navCtrl.push(ShopListDescriptionPage, shop_list.key);
     }
 
     presentModal() {

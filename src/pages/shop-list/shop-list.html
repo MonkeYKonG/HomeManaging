@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>shop_list</ion-title>
   </ion-navbar>
 
@@ -30,9 +33,6 @@
       
       <ion-col>
 	<button ion-button (click)="selectNewTitle()">Nouvelle liste</button>
-      </ion-col>
-      <ion-col>
-	<button ion-button (click)="presentModal()">Nouvelle liste</button>
       </ion-col>
     </ion-col>
   </ion-row>

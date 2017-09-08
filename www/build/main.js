@@ -83,15 +83,20 @@ var ShopListDescriptionPage = (function () {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.firebaseProvider = firebaseProvider;
+        //DEBUG
         this.test = [
             { name: "banane", quantity: 4, isCheck: true },
             { name: "chocolat", quantity: 12, isCheck: false }
         ];
-        this.items = this.firebaseProvider.getItems("shop-list/liste de test");
-        // ajouter le chemain restant en utilisant le nom de la liste passer en argument
-        // DEBUG
-        this.title = "bonjour le monde";
-        this.description = "je suis la description";
+        this.testComment = [
+            { author: "Alexis", date: "Ven 8 sept", text: "prendre un gros paquet de tresor" },
+            { author: "Justine", date: "Jeu 7 sept", text: "je sais pas quoi mettre" }
+        ];
+        this.title = navParams.data;
+        this.items =
+            this.firebaseProvider.getItems("shop-list/" + this.title + "/items/");
+        this.commentary =
+            this.firebaseProvider.getItems("shop-list/" + this.title + "/commentaty");
     }
     ShopListDescriptionPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad CreateShopListPage');
@@ -103,7 +108,7 @@ var ShopListDescriptionPage = (function () {
 ShopListDescriptionPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>shop_list</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2> {{ title }} </h2>\n  <p> {{ description }} </p>\n  <ion-card>\n    <ion-list>\n      <button ion-item *ngFor="let item of test">\n	<ion-row>\n	  <ion-col>\n	    {{ item.name }}\n	  </ion-col>\n	  <ion-col>\n	    x{{ item.quantity }}\n	  </ion-col>\n	</ion-row>\n      </button>\n    </ion-list>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/,
+        selector: 'page-shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>shop_list</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2> {{ title }} </h2>\n  <ion-card>\n    <ion-list>\n      <p *ngFor="let comment of testComment">\n	<ion-col>\n	  <ion-row>\n	    <ion-col>\n	      {{ comment.author }}\n	    </ion-col>\n	    <ion-col>\n	      {{ comment.date }}\n	    </ion-col>\n	  </ion-row>\n	  <ion-row>\n	    {{ comment.text }}\n	  </ion-row>\n	</ion-col>\n      </p>\n    </ion-list>\n  </ion-card>\n  <ion-card>\n    <ion-list>\n      <button ion-item *ngFor="let item of test">\n	<ion-row>\n	  <ion-col>\n	    {{ item.name }}\n	  </ion-col>\n	  <ion-col>\n	    x{{ item.quantity }}\n	  </ion-col>\n	</ion-row>\n      </button>\n    </ion-list>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/,
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]) === "function" && _c || Object])
 ], ShopListDescriptionPage);
@@ -178,7 +183,8 @@ var ShopListPage = (function () {
                 {
                     text: 'Créer la liste',
                     handler: function (data) {
-                        _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */]);
+                        console.log(data);
+                        _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */], data.title);
                     }
                 }
             ]
@@ -186,8 +192,7 @@ var ShopListPage = (function () {
         prompt.present();
     };
     ShopListPage.prototype.openShopList = function (shop_list) {
-        console.log(shop_list);
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */], shop_list.key);
     };
     ShopListPage.prototype.presentModal = function () {
         var modal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */]);
@@ -198,7 +203,7 @@ var ShopListPage = (function () {
 ShopListPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/'<!--\n  Generated template for the ShopListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>shop_list</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <button ion-item *ngFor="let item of items | async" (click)="presentModal()">\n      {{ item.$key }}\n    </button>\n  </ion-list>\n  <ion-row>\n    <ion-col col-9>\n      \n      <ion-list>\n	<button ion-item *ngFor="let item of test" (click)="openShopList(item)">\n	  {{ item.key }}\n	</button>\n      </ion-list>\n      \n      <ion-col>\n	<button ion-button (click)="selectNewTitle()">Nouvelle liste</button>\n      </ion-col>\n      <ion-col>\n	<button ion-button (click)="presentModal()">Nouvelle liste</button>\n      </ion-col>\n    </ion-col>\n  </ion-row>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/,
+        selector: 'page-shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/'<!--\n  Generated template for the ShopListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>shop_list</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <button ion-item *ngFor="let item of items | async" (click)="presentModal()">\n      {{ item.$key }}\n    </button>\n  </ion-list>\n  <ion-row>\n    <ion-col col-9>\n      \n      <ion-list>\n	<button ion-item *ngFor="let item of test" (click)="openShopList(item)">\n	  {{ item.key }}\n	</button>\n      </ion-list>\n      \n      <ion-col>\n	<button ion-button (click)="selectNewTitle()">Nouvelle liste</button>\n      </ion-col>\n    </ion-col>\n  </ion-row>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/,
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* ModalController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]) === "function" && _e || Object])
 ], ShopListPage);

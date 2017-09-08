@@ -15,7 +15,25 @@
 
 <ion-content padding>
   <h2> {{ title }} </h2>
-  <p> {{ description }} </p>
+  <ion-card>
+    <ion-list>
+      <p *ngFor="let comment of testComment">
+	<ion-col>
+	  <ion-row>
+	    <ion-col>
+	      {{ comment.author }}
+	    </ion-col>
+	    <ion-col>
+	      {{ comment.date }}
+	    </ion-col>
+	  </ion-row>
+	  <ion-row>
+	    {{ comment.text }}
+	  </ion-row>
+	</ion-col>
+      </p>
+    </ion-list>
+  </ion-card>
   <ion-card>
     <ion-list>
       <button ion-item *ngFor="let item of test">
