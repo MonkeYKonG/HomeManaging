@@ -7,6 +7,8 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { ShopListPage } from '../pages/shop-list/shop-list';
+import { MemoPage } from '../pages/memo/memo';
+import { MessagesPage } from '../pages/messages/messages';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,7 +28,9 @@ export class MyApp {
 	{ title: 'Accueil', component: HomePage },
 	{ title: 'List', component: ListPage },
 	{ title: 'Calendrier', component: CalendarPage },
-	{ title: 'Listes de courses', component: ShopListPage }
+	{ title: 'Listes de courses', component: ShopListPage },
+	{ title: 'Mémo', component: MemoPage },
+	{ title: 'Messages', component: MessagesPage }
     ];
 
   }
