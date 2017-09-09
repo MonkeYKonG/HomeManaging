@@ -20,18 +20,21 @@ import { ShopListDescriptionPage } from './subpages/shop-list-description';
 })
 export class ShopListPage {
 
-    items: FirebaseListObservable<any[]>;
-    test = [
+    shopLists: FirebaseListObservable<any[]>;
+    localShopLists = [
 	{key: "test"},
 	{key: "test2"}
     ];
+    listIsLoad: boolean;
     
     constructor(public navCtrl: NavController,
 		public navParams: NavParams,
 		public alertCtrl: AlertController,
 		public modalCtrl: ModalController,
 		public firebaseProvider: FirebaseProvider) {
-	this.items = this.firebaseProvider.getItems("shop-list");
+	this.listIsLoad = false;
+	this.shopLists = this.firebaseProvider.getItems("shop-list");
+	this.shopLists.subscribe(() => this.listIsLoad = true)
     }
     
     ionViewDidLoad() {
@@ -42,7 +45,7 @@ export class ShopListPage {
 	this.firebaseProvider.removeItem(id);
     }
 
-    private selectNewTitle() {
+    promptNewTitle() {
 	let prompt = this.alertCtrl.create({
 	    title: 'Nouvelle liste',
 	    inputs: [
@@ -59,7 +62,7 @@ export class ShopListPage {
 		    text: 'Créer la liste',
 		    handler: data => {
 			console.log(data);
-			this.navCtrl.push(ShopListDescriptionPage, data.title);
+			this.navCtrl.push(ShopListDescriptionPage, {title: data.title, newList: true});
 		    }           
 		}	      
 	    ]
@@ -68,11 +71,9 @@ export class ShopListPage {
     }
 
     openShopList(shop_list) {
-	this.navCtrl.push(ShopListDescriptionPage, shop_list.key);
-    }
-
-    presentModal() {
-	let modal = this.modalCtrl.create(ShopListDescriptionPage);
-	modal.present();
+	if (shop_list.key)
+	    this.navCtrl.push(ShopListDescriptionPage, shop_list.key);
+	else
+	    this.navCtrl.push(ShopListDescriptionPage, shop_list.$key);
     }
 }

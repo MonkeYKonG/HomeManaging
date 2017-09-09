@@ -7,33 +7,34 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>shop_list</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="promptNewTitle()">
+	<ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <ion-list>
-    <button ion-item *ngFor="let item of items | async" (click)="presentModal()">
-      {{ item.$key }}
+<ion-content>
+  <ion-list >
+    <div *ngIf="listIsLoad">
+      <button ion-item *ngFor="let item of shopLists | async" (click)="openShopList(item)">
+	{{ item.$key }}
+      </button>
+    </div>
+    <div *ngIf="!listIsLoad">
+      <button ion-item *ngFor="let item of localShopLists" (click)="openShopList(item)">
+	{{ item.key }}
+      </button>
+    </div>
+    <button ion-item (click)="promptNewTitle()">
+      Ajouter une nouvelle liste
     </button>
   </ion-list>
-  <ion-row>
-    <ion-col col-9>
-      
-      <ion-list>
-	<button ion-item *ngFor="let item of test" (click)="openShopList(item)">
-	  {{ item.key }}
-	</button>
-      </ion-list>
-      
-      <ion-col>
-	<button ion-button (click)="selectNewTitle()">Nouvelle liste</button>
-      </ion-col>
-    </ion-col>
-  </ion-row>
 </ion-content>

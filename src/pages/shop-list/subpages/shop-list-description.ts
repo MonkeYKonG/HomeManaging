@@ -37,9 +37,9 @@ export class ShopListDescriptionPage {
 		public firebaseProvider: FirebaseProvider) {
 	this.title = navParams.data;
 	this.items =
-	    this.firebaseProvider.getItems("shop-list/" + this.title + "/items/");
+	    this.firebaseProvider.getItems("/shop-list/" + this.title + "/items");
 	this.commentary =
-	    this.firebaseProvider.getItems("shop-list/" + this.title + "/commentaty");
+	    this.firebaseProvider.getItems("/shop-list/" + this.title + "/commentary");
     }
     
     ionViewDidLoad() {

@@ -1,14 +1,14 @@
 webpackJsonp([1],{
 
-/***/ 402:
+/***/ 403:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemoPageModule", function() { return MemoPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShopListPageModule", function() { return ShopListPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__memo__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shop_list__ = __webpack_require__(79);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var MemoPageModule = (function () {
-    function MemoPageModule() {
+var ShopListPageModule = (function () {
+    function ShopListPageModule() {
     }
-    return MemoPageModule;
+    return ShopListPageModule;
 }());
-MemoPageModule = __decorate([
+ShopListPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__memo__["a" /* MemoPage */],
+            __WEBPACK_IMPORTED_MODULE_2__shop_list__["a" /* ShopListPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__memo__["a" /* MemoPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__shop_list__["a" /* ShopListPage */]),
         ],
     })
-], MemoPageModule);
+], ShopListPageModule);
 
-//# sourceMappingURL=memo.module.js.map
+//# sourceMappingURL=shop-list.module.js.map
 
 /***/ })
 

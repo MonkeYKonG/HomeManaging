@@ -17,35 +17,26 @@
   <h2> {{ title }} </h2>
   <ion-card>
     <ion-list>
-      <p *ngFor="let comment of testComment">
-	<ion-col>
-	  <ion-row>
-	    <ion-col>
-	      {{ comment.author }}
-	    </ion-col>
-	    <ion-col>
-	      {{ comment.date }}
-	    </ion-col>
-	  </ion-row>
-	  <ion-row>
-	    {{ comment.text }}
-	  </ion-row>
-	</ion-col>
-      </p>
+      <ion-list-header>
+	Liste de course
+      </ion-list-header>
+      <ion-item *ngFor="let item of test">
+	<ion-label>{{ item.name }}: x{{ item.quantity }}</ion-label>
+	<ion-checkbox value="secondary" checked="false"></ion-checkbox>
+      </ion-item>
     </ion-list>
   </ion-card>
   <ion-card>
     <ion-list>
-      <button ion-item *ngFor="let item of test">
-	<ion-row>
-	  <ion-col>
-	    {{ item.name }}
-	  </ion-col>
-	  <ion-col>
-	    x{{ item.quantity }}
-	  </ion-col>
-	</ion-row>
-      </button>
+      <ion-list-header>
+	Commentaires
+      </ion-list-header>
+      <ion-card *ngFor="let comment of commentary | async">
+	<ion-card-header>
+	  {{ comment.author }} le {{ comment.date }}
+	</ion-card-header>
+	{{ comment.text }}
+      </ion-card>
     </ion-list>
   </ion-card>
 </ion-content>
