@@ -33,6 +33,7 @@
 	{{ item.title }}
       </button>
     </div>
+    <memo *ngFor="let item of localList"></memo>
     <button ion-item (click)="promptNewTitle()">
       Ajouter une nouvelle liste
     </button>

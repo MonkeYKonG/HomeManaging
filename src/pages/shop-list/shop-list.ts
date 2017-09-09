@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController, ModalController } from 'ionic-angular';
 
+import { ShopListItem } from '../../assets/class/shopList-item';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { ShopListDescriptionPage } from './subpages/shop-list-description';
 

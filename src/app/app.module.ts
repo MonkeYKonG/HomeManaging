@@ -11,6 +11,10 @@ import { ShopListDescriptionPage } from '../pages/shop-list/subpages/shop-list-d
 import { MemoPage } from '../pages/memo/memo';
 import { MessagesPage } from '../pages/messages/messages'
 
+import { ShopListItem } from '../assets/class/shopList-item';
+import { MemoItem } from '../assets/class/memo-item';
+import { CommentaryItem } from '../assets/class/commentary-item';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -38,7 +42,10 @@ const firebaseConfig = {
 	ShopListPage,
 	ShopListDescriptionPage,
 	MemoPage,
-	MessagesPage
+	MessagesPage,
+	ShopListItem,
+	MemoItem,
+	CommentaryItem
     ],
     imports: [
 	BrowserModule,
@@ -56,7 +63,10 @@ const firebaseConfig = {
 	ShopListPage,
 	ShopListDescriptionPage,
 	MemoPage,
-	MessagesPage
+	MessagesPage,
+	ShopListItem,
+	MemoItem,
+	CommentaryItem
     ],
     providers: [
 	StatusBar,

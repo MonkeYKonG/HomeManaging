@@ -13,7 +13,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
 
 @IonicPage()
 @Component({
-  selector: 'page-shop-list',
+  selector: 'page-shop-list-description',
   templateUrl: 'shop-list-description.html',
 })
 export class ShopListDescriptionPage {

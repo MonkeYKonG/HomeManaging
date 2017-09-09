@@ -1,13 +1,19 @@
 import { CommentaryItem } from './commentary-item';
 
+import { Component } from '@angular/core';
+
 export class ShopItem {
-    name: string;
-    quantity: string;
-    isCheck: boolean;
+    name: string = "item name";
+    quantity: string = "quantity";
+    isCheck: boolean = false;
 }
 
+@Component({
+    selector: 'shop-list',
+    templateUrl: 'shopList-item.html'
+})
 export class ShopListItem {
-    title: string;
+    title: string = "title";
     commentarys: CommentaryItem[];
     list: ShopItem[];
 }
