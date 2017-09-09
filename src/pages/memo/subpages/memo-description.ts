@@ -10,14 +10,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-shop-list',
-  templateUrl: 'shop-list-description.html',
+  selector: 'page-memo',
+  templateUrl: 'memo-description.html',
 })
-export class ShopListDescriptionPage {
+export class MemoDescriptionPage {
 
     title: string;
-    commentary: FirebaseListObservable<any[]>;
-    text: FirebaseListObservable<any[]>;
 
     //DEBUG
     localCommentary = [
@@ -30,16 +28,15 @@ export class ShopListDescriptionPage {
     ]
 
     constructor(public navCtrl: NavController,
-		public navParams: NavParams,
-		public firebaseProvider: FirebaseProvider) {
+		public navParams: NavParams) {
 	this.title = navParams.data;
     }
     
     ionViewDidLoad() {
-	console.log('ionViewDidLoad CreateShopListPage');
+	console.log('ionViewDidLoad CreateMemoPage');
     }
 
-    createNewShopList() {
+    createNewMemo() {
 	
     }
 }

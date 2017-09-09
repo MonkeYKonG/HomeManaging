@@ -430,7 +430,7 @@ AppModule = __decorate([
                     { loadChildren: '../pages/shop-list/shop-list.module#ShopListPageModule', name: 'ShopListPage', segment: 'shop-list', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/memo/memo.module#MemoPageModule', name: 'MemoPage', segment: 'memo', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/messages/messages.module#MessagesPageModule', name: 'MessagesPage', segment: 'messages', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/memo/subpages/memo-description.module#MemoDescriptionPageModule', name: 'ShopListDescriptionPage', segment: 'memo-description', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/memo/subpages/memo-description.module#MemoDescriptionPageModule', name: 'MemoDescriptionPage', segment: 'memo-description', priority: 'low', defaultHistory: [] }
                 ]
             })
         ],
@@ -761,12 +761,10 @@ MemoPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
         selector: 'page-memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/'<!--\n  Generated template for the MemoPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Mémos</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list >\n    <div *ngIf="listIsLoad">\n      <button ion-item *ngFor="let item of lists | async">\n	{{ item.title }}\n      </button>\n    </div>\n    <div *ngIf="!listIsLoad">\n      <button ion-item *ngFor="let item of localList">\n	{{ item.title }}\n      </button>\n    </div>\n    <button ion-item (click)="promptNewTitle()">\n      Ajouter une nouvelle liste\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]) === "function" && _d || Object])
 ], MemoPage);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=memo.js.map
 
 /***/ }),

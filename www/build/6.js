@@ -26,10 +26,10 @@ var MemoDescriptionPageModule = (function () {
 MemoDescriptionPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__memo_description__["MemoDescriptionPage"],
+            __WEBPACK_IMPORTED_MODULE_2__memo_description__["a" /* MemoDescriptionPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__memo_description__["MemoDescriptionPage"]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__memo_description__["a" /* MemoDescriptionPage */]),
         ],
     })
 ], MemoDescriptionPageModule);
@@ -42,7 +42,7 @@ MemoDescriptionPageModule = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export ShopListDescriptionPage */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MemoDescriptionPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -62,11 +62,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var ShopListDescriptionPage = (function () {
-    function ShopListDescriptionPage(navCtrl, navParams, firebaseProvider) {
+var MemoDescriptionPage = (function () {
+    function MemoDescriptionPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.firebaseProvider = firebaseProvider;
         //DEBUG
         this.localCommentary = [
             { name: "banane", quantity: 4, isCheck: true },
@@ -78,21 +77,20 @@ var ShopListDescriptionPage = (function () {
         ];
         this.title = navParams.data;
     }
-    ShopListDescriptionPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad CreateShopListPage');
+    MemoDescriptionPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad CreateMemoPage');
     };
-    ShopListDescriptionPage.prototype.createNewShopList = function () {
+    MemoDescriptionPage.prototype.createNewMemo = function () {
     };
-    return ShopListDescriptionPage;
+    return MemoDescriptionPage;
 }());
-ShopListDescriptionPage = __decorate([
+MemoDescriptionPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-shop-list',
-        templateUrl: 'shop-list-description.html',
+        selector: 'page-memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/subpages/memo-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>shop_list</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2> {{ title }} </h2>\n  <ion-card>\n    <ion-list>\n      <ion-list-header>\n	Liste de course\n      </ion-list-header>\n      <ion-item *ngFor="let item of test">\n	<ion-label>{{ item.name }}: x{{ item.quantity }}</ion-label>\n	<ion-checkbox value="secondary" checked="false"></ion-checkbox>\n      </ion-item>\n    </ion-list>\n  </ion-card>\n  <ion-card>\n    <ion-list>\n      <ion-list-header>\n	Commentaires\n      </ion-list-header>\n      <ion-card *ngFor="let comment of commentary | async">\n	<ion-card-header>\n	  {{ comment.author }} le {{ comment.date }}\n	</ion-card-header>\n	{{ comment.text }}\n      </ion-card>\n    </ion-list>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/subpages/memo-description.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, Object])
-], ShopListDescriptionPage);
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object])
+], MemoDescriptionPage);
 
 var _a, _b;
 //# sourceMappingURL=memo-description.js.map
