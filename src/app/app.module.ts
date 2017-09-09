@@ -18,6 +18,7 @@ import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from './../providers/firebase/firebase';
+import { AlertCreatorProvider } from '../providers/alert-creator/alert-creator';
 
 const firebaseConfig = {
     apiKey: "AIzaSyByKxQ1GchNLJwEyb4o71CyuprbVEKXhr0",
@@ -61,7 +62,8 @@ const firebaseConfig = {
 	StatusBar,
 	SplashScreen,
 	FirebaseProvider,
-	{provide: ErrorHandler, useClass: IonicErrorHandler}
+	{provide: ErrorHandler, useClass: IonicErrorHandler},
+	AlertCreatorProvider
     ]
 })
 export class AppModule {}

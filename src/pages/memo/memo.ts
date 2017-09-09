@@ -1,5 +1,9 @@
+import { FirebaseProvider } from './../../providers/firebase/firebase';
+
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+
+import { FirebaseListObservable } from 'angularfire2/database';
 
 /**
  * Generated class for the MemoPage page.
@@ -14,12 +18,48 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'memo.html',
 })
 export class MemoPage {
+    listIsLoad: boolean;
+    list: FirebaseListObservable<any[]>;
+    localList = [
+	{ key: "1", title: "titre", content: "content" },
+	{ key: "2", title: "titre2", content: "content2" }
+    ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController,
+		public navParams: NavParams,
+		public alertCtrl: AlertController,
+		public firebaseProvider: FirebaseProvider) {
+	this.listIsLoad = false;
+	this.list = this.firebaseProvider.getItems("memo");
+	this.list.subscribe(() => this.listIsLoad = true);
+    }
+    
+    ionViewDidLoad() {
+	console.log('ionViewDidLoad MemoPage');
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MemoPage');
-  }
-
+    promptNewTitle() {
+	let prompt = this.alertCtrl.create({
+	    title: 'Nouveau mémo',
+	    inputs: [
+		{
+		    name: 'title',
+		    placeholder: 'Titre'
+		},
+	    ],
+	    buttons: [
+		{
+		    text: 'Annuler'
+		},
+		{
+		    text: 'Créer le mémo',
+		    handler: data => {
+			console.log(data);
+		    }           
+		}	      
+	    ]
+	});
+	prompt.present();
+    }
+    
 }

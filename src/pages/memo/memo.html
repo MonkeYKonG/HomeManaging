@@ -10,12 +10,31 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>memo</ion-title>
+    <ion-title>Mémos</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="promptNewTitle()">
+	<ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list >
+    <div *ngIf="listIsLoad">
+      <button ion-item *ngFor="let item of lists | async">
+	{{ item.title }}
+      </button>
+    </div>
+    <div *ngIf="!listIsLoad">
+      <button ion-item *ngFor="let item of localList">
+	{{ item.title }}
+      </button>
+    </div>
+    <button ion-item (click)="promptNewTitle()">
+      Ajouter une nouvelle liste
+    </button>
+  </ion-list>
 </ion-content>

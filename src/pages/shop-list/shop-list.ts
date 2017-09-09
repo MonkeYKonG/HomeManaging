@@ -1,4 +1,5 @@
 import { FirebaseProvider } from './../../providers/firebase/firebase';
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController, ModalController } from 'ionic-angular';
@@ -34,7 +35,7 @@ export class ShopListPage {
 		public firebaseProvider: FirebaseProvider) {
 	this.listIsLoad = false;
 	this.shopLists = this.firebaseProvider.getItems("shop-list");
-	this.shopLists.subscribe(() => this.listIsLoad = true)
+	this.shopLists.subscribe(() => this.listIsLoad = true);
     }
     
     ionViewDidLoad() {
