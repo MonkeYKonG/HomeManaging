@@ -3,7 +3,7 @@ import { FirebaseProvider } from './../../providers/firebase/firebase';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
-import { MemoItem } from './../../assets/class/shopList-item';
+import { MemoItem } from './../../assets/class/memo-item';
 
 import { FirebaseListObservable } from 'angularfire2/database';
 
@@ -27,7 +27,7 @@ export class MemoPage {
 	{ key: "2", title: "titre2", content: "content2" }
     ];
 
-    
+    test: MemoItem;
 
     constructor(public navCtrl: NavController,
 		public navParams: NavParams,

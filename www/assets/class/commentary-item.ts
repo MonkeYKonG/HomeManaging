@@ -1,4 +1,4 @@
-class CommentaryItem {
+export class CommentaryItem {
     title: string;
     author: string;
     date: string;
