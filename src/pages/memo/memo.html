@@ -22,19 +22,12 @@
 
 
 <ion-content padding>
-  <ion-list >
-    <div *ngIf="listIsLoad">
-      <button ion-item *ngFor="let item of lists | async">
-	{{ item.title }}
-      </button>
-    </div>
-    <div *ngIf="!listIsLoad">
-      <button ion-item *ngFor="let item of localList">
-	{{ item.title }}
-      </button>
-    </div>
-    <memo *ngFor="let item of localList"></memo>
-    <button ion-item (click)="promptNewTitle()">
+  <ion-list>
+    <button ion-item *ngFor="let item of list | async">
+      {{ item.title }}
+    </button>
+    <button ion-item (click)="promptNewTitle()" icon-start>
+      <ion-icon name="add"></ion-icon>
       Ajouter une nouvelle liste
     </button>
   </ion-list>

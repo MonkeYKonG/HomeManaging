@@ -1,4 +1,4 @@
-<!--
+x<!--
   Generated template for the ShopListDescriptionPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
@@ -14,29 +14,42 @@
 
 
 <ion-content padding>
-  <h2> {{ title }} </h2>
+  <h2>
+    {{ (data | async)?.title }}
+  </h2>
   <ion-card>
+    <ion-card-header>
+      <ion-row>
+	<ion-col>
+	  Liste de course
+	</ion-col>
+	<ion-col col-auto>
+	  <button ion-button icon-only small (click)="addNewItem()">
+	    <ion-icon name="add"></ion-icon>
+	  </button>
+	</ion-col>
+      </ion-row>
+    </ion-card-header>
     <ion-list>
-      <ion-list-header>
-	Liste de course
-      </ion-list-header>
-      <ion-item *ngFor="let item of test">
-	<ion-label>{{ item.name }}: x{{ item.quantity }}</ion-label>
-	<ion-checkbox value="secondary" checked="false"></ion-checkbox>
+      <ion-item *ngFor="let item of items | async">
+	<ion-label>
+	  {{ item.name }}  x{{ item.quantity }}
+	</ion-label>
+	<ion-checkbox [(ngModel)]="item.isCheck" (click)="updateItem(item, 'items/')"></ion-checkbox>
       </ion-item>
     </ion-list>
   </ion-card>
   <ion-card>
-    <ion-list>
-      <ion-list-header>
-	Commentaires
-      </ion-list-header>
-      <ion-card *ngFor="let comment of commentary | async">
-	<ion-card-header>
-	  {{ comment.author }} le {{ comment.date }}
-	</ion-card-header>
+    <ion-card-header>
+      Commentaires
+    </ion-card-header>
+    <ion-item *ngFor="let comment of commentary | async">
+      <h2>
+	{{ comment.author }} le {{ comment.date }}
+      </h2>
+      <p>
 	{{ comment.text }}
-      </ion-card>
-    </ion-list>
+      </p>
+    </ion-item>
   </ion-card>
 </ion-content>

@@ -1,8 +1,8 @@
 import { FirebaseProvider } from './../../../providers/firebase/firebase';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
 /**
  * Generated class for the ShopListPage page.
@@ -17,36 +17,58 @@ import { FirebaseListObservable } from 'angularfire2/database';
   templateUrl: 'shop-list-description.html',
 })
 export class ShopListDescriptionPage {
-
-    title: string;
-    commentary: FirebaseListObservable<any[]>;
+    rootPath: string;
+    data: FirebaseObjectObservable<any[]>;
     items: FirebaseListObservable<any[]>;
-
-    //DEBUG
-    test = [
-	{name: "banane", quantity: 4, isCheck: true},
-	{name: "chocolat", quantity: 12, isCheck: false}
-    ];
-    testComment = [
-	{author: "Alexis", date: "Ven 8 sept", text: "prendre un gros paquet de tresor"},
-	{author: "Justine", date: "Jeu 7 sept", text: "je sais pas quoi mettre"}
-    ]
-
+    commentary: FirebaseListObservable<any[]>;
+    
     constructor(public navCtrl: NavController,
 		public navParams: NavParams,
+		public alertCtrl: AlertController,
 		public firebaseProvider: FirebaseProvider) {
-	this.title = navParams.data;
-	this.items =
-	    this.firebaseProvider.getItems("/shop-list/" + this.title + "/items");
-	this.commentary =
-	    this.firebaseProvider.getItems("/shop-list/" + this.title + "/commentary");
+	this.rootPath = "shop-list/" + this.navParams.data + "/";
+	this.data = this.firebaseProvider.getObject(this.rootPath);
+	this.items = this.firebaseProvider.getItems(this.rootPath + "items");
+	this.commentary = this.firebaseProvider.getItems(this.rootPath + "commentary");
     }
     
     ionViewDidLoad() {
 	console.log('ionViewDidLoad CreateShopListPage');
     }
 
-    createNewShopList() {
-	
+    addNewItem() {
+	let prompt = this.alertCtrl.create({
+	    title: 'Nouvelle article',
+	    inputs: [
+		{
+		    name: 'name',
+		    placeholder: 'Nom de l\'article'
+		},
+		{
+		    name: 'quantity',
+		    value: '1',
+		    type: 'number'
+		}
+	    ],
+	    buttons: [
+		{
+		    text: 'Annuler'
+		},
+		{
+		    text: 'Ajouter à la liste',
+		    handler: data => {
+			if (data.name)
+			    this.firebaseProvider.addItem({name: data.name, quantity: data.quantity, isCheck: false}, this.rootPath + "items");
+		    }           
+		}	      
+	    ]
+	});
+	prompt.present();
+    }
+
+    updateItem(item, repository) {
+	console.log(item);
+	var dataItems = this.firebaseProvider.getObject(this.rootPath + repository + item.$key);
+	dataItems.subscribe(() => dataItems.update(item));
     }
 }

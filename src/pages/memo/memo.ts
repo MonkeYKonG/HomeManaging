@@ -20,22 +20,13 @@ import { FirebaseListObservable } from 'angularfire2/database';
   templateUrl: 'memo.html',
 })
 export class MemoPage {
-    listIsLoad: boolean;
     list: FirebaseListObservable<any[]>;
-    localList = [
-	{ key: "1", title: "titre", content: "content" },
-	{ key: "2", title: "titre2", content: "content2" }
-    ];
-
-    test: MemoItem;
-
+    
     constructor(public navCtrl: NavController,
 		public navParams: NavParams,
 		public alertCtrl: AlertController,
 		public firebaseProvider: FirebaseProvider) {
-	this.listIsLoad = false;
 	this.list = this.firebaseProvider.getItems("memo");
-	this.list.subscribe(() => this.listIsLoad = true);
     }
     
     ionViewDidLoad() {

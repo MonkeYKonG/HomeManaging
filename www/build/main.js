@@ -72,42 +72,65 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * on Ionic pages and navigation.
  */
 var ShopListDescriptionPage = (function () {
-    function ShopListDescriptionPage(navCtrl, navParams, firebaseProvider) {
+    function ShopListDescriptionPage(navCtrl, navParams, alertCtrl, firebaseProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.alertCtrl = alertCtrl;
         this.firebaseProvider = firebaseProvider;
-        //DEBUG
-        this.test = [
-            { name: "banane", quantity: 4, isCheck: true },
-            { name: "chocolat", quantity: 12, isCheck: false }
-        ];
-        this.testComment = [
-            { author: "Alexis", date: "Ven 8 sept", text: "prendre un gros paquet de tresor" },
-            { author: "Justine", date: "Jeu 7 sept", text: "je sais pas quoi mettre" }
-        ];
-        this.title = navParams.data;
-        this.items =
-            this.firebaseProvider.getItems("/shop-list/" + this.title + "/items");
-        this.commentary =
-            this.firebaseProvider.getItems("/shop-list/" + this.title + "/commentary");
+        this.rootPath = "shop-list/" + this.navParams.data + "/";
+        this.data = this.firebaseProvider.getObject(this.rootPath);
+        this.items = this.firebaseProvider.getItems(this.rootPath + "items");
+        this.commentary = this.firebaseProvider.getItems(this.rootPath + "commentary");
     }
     ShopListDescriptionPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad CreateShopListPage');
     };
-    ShopListDescriptionPage.prototype.createNewShopList = function () {
+    ShopListDescriptionPage.prototype.addNewItem = function () {
+        var _this = this;
+        var prompt = this.alertCtrl.create({
+            title: 'Nouvelle article',
+            inputs: [
+                {
+                    name: 'name',
+                    placeholder: 'Nom de l\'article'
+                },
+                {
+                    name: 'quantity',
+                    value: '1',
+                    type: 'number'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Annuler'
+                },
+                {
+                    text: 'Ajouter à la liste',
+                    handler: function (data) {
+                        if (data.name)
+                            _this.firebaseProvider.addItem({ name: data.name, quantity: data.quantity, isCheck: false }, _this.rootPath + "items");
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    };
+    ShopListDescriptionPage.prototype.updateItem = function (item, repository) {
+        console.log(item);
+        var dataItems = this.firebaseProvider.getObject(this.rootPath + repository + item.$key);
+        dataItems.subscribe(function () { return dataItems.update(item); });
     };
     return ShopListDescriptionPage;
 }());
 ShopListDescriptionPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-shop-list-description',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>shop_list</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2> {{ title }} </h2>\n  <ion-card>\n    <ion-list>\n      <ion-list-header>\n	Liste de course\n      </ion-list-header>\n      <ion-item *ngFor="let item of test">\n	<ion-label>{{ item.name }}: x{{ item.quantity }}</ion-label>\n	<ion-checkbox value="secondary" checked="false"></ion-checkbox>\n      </ion-item>\n    </ion-list>\n  </ion-card>\n  <ion-card>\n    <ion-list>\n      <ion-list-header>\n	Commentaires\n      </ion-list-header>\n      <ion-card *ngFor="let comment of commentary | async">\n	<ion-card-header>\n	  {{ comment.author }} le {{ comment.date }}\n	</ion-card-header>\n	{{ comment.text }}\n      </ion-card>\n    </ion-list>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/,
+        selector: 'page-shop-list-description',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/'x<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>shop_list</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2>\n    {{ (data | async)?.title }}\n  </h2>\n  <ion-card>\n    <ion-card-header>\n      <ion-row>\n	<ion-col>\n	  Liste de course\n	</ion-col>\n	<ion-col col-auto>\n	  <button ion-button icon-only small (click)="addNewItem()">\n	    <ion-icon name="add"></ion-icon>\n	  </button>\n	</ion-col>\n      </ion-row>\n    </ion-card-header>\n    <ion-list>\n      <ion-item *ngFor="let item of items | async">\n	<ion-label>\n	  {{ item.name }}  x{{ item.quantity }}\n	</ion-label>\n	<ion-checkbox [(ngModel)]="item.isCheck" (click)="updateItem(item, \'items/\')"></ion-checkbox>\n      </ion-item>\n    </ion-list>\n  </ion-card>\n  <ion-card>\n    <ion-card-header>\n      Commentaires\n    </ion-card-header>\n    <ion-item *ngFor="let comment of commentary | async">\n      <h2>\n	{{ comment.author }} le {{ comment.date }}\n      </h2>\n      <p>\n	{{ comment.text }}\n      </p>\n    </ion-item>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
-        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]) === "function" && _d || Object])
 ], ShopListDescriptionPage);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=shop-list-description.js.map
 
 /***/ }),
@@ -134,23 +157,23 @@ webpackEmptyAsyncContext.id = 150;
 
 var map = {
 	"../pages/memo/memo.module": [
-		408,
+		405,
 		4
 	],
 	"../pages/memo/subpages/memo-description.module": [
-		410,
+		407,
 		0
 	],
 	"../pages/messages/messages.module": [
-		409,
+		406,
 		3
 	],
 	"../pages/shop-list/shop-list.module": [
-		407,
+		404,
 		2
 	],
 	"../pages/shop-list/subpages/shop-list-description.module": [
-		406,
+		403,
 		1
 	]
 };
@@ -311,25 +334,19 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_shop_list_subpages_shop_list_description__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_memo_memo__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_messages_messages__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__assets_class_shopList_item__ = __webpack_require__(402);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__assets_class_memo_item__ = __webpack_require__(403);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__assets_class_commentary_item__ = __webpack_require__(404);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_status_bar__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__ionic_native_splash_screen__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_http__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_angularfire2_database__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_angularfire2__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__providers_firebase_firebase__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__providers_alert_creator_alert_creator__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_status_bar__ = __webpack_require__(270);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_splash_screen__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_http__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_angularfire2_database__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angularfire2__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_firebase_firebase__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_alert_creator_alert_creator__ = __webpack_require__(402);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
-
-
 
 
 
@@ -371,16 +388,13 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_7__pages_shop_list_shop_list__["a" /* ShopListPage */],
             __WEBPACK_IMPORTED_MODULE_8__pages_shop_list_subpages_shop_list_description__["a" /* ShopListDescriptionPage */],
             __WEBPACK_IMPORTED_MODULE_9__pages_memo_memo__["a" /* MemoPage */],
-            __WEBPACK_IMPORTED_MODULE_10__pages_messages_messages__["a" /* MessagesPage */],
-            __WEBPACK_IMPORTED_MODULE_11__assets_class_shopList_item__["a" /* ShopListItem */],
-            __WEBPACK_IMPORTED_MODULE_12__assets_class_memo_item__["a" /* MemoItem */],
-            __WEBPACK_IMPORTED_MODULE_13__assets_class_commentary_item__["a" /* CommentaryItem */]
+            __WEBPACK_IMPORTED_MODULE_10__pages_messages_messages__["a" /* MessagesPage */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_16__angular_http__["b" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_17_angularfire2_database__["b" /* AngularFireDatabaseModule */],
-            __WEBPACK_IMPORTED_MODULE_18_angularfire2__["a" /* AngularFireModule */].initializeApp(firebaseConfig),
+            __WEBPACK_IMPORTED_MODULE_13__angular_http__["b" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_14_angularfire2_database__["b" /* AngularFireDatabaseModule */],
+            __WEBPACK_IMPORTED_MODULE_15_angularfire2__["a" /* AngularFireModule */].initializeApp(firebaseConfig),
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                 links: [
                     { loadChildren: '../pages/shop-list/subpages/shop-list-description.module#ShopListDescriptionPageModule', name: 'ShopListDescriptionPage', segment: 'shop-list-description', priority: 'low', defaultHistory: [] },
@@ -400,17 +414,14 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_7__pages_shop_list_shop_list__["a" /* ShopListPage */],
             __WEBPACK_IMPORTED_MODULE_8__pages_shop_list_subpages_shop_list_description__["a" /* ShopListDescriptionPage */],
             __WEBPACK_IMPORTED_MODULE_9__pages_memo_memo__["a" /* MemoPage */],
-            __WEBPACK_IMPORTED_MODULE_10__pages_messages_messages__["a" /* MessagesPage */],
-            __WEBPACK_IMPORTED_MODULE_11__assets_class_shopList_item__["a" /* ShopListItem */],
-            __WEBPACK_IMPORTED_MODULE_12__assets_class_memo_item__["a" /* MemoItem */],
-            __WEBPACK_IMPORTED_MODULE_13__assets_class_commentary_item__["a" /* CommentaryItem */]
+            __WEBPACK_IMPORTED_MODULE_10__pages_messages_messages__["a" /* MessagesPage */]
         ],
         providers: [
-            __WEBPACK_IMPORTED_MODULE_14__ionic_native_status_bar__["a" /* StatusBar */],
-            __WEBPACK_IMPORTED_MODULE_15__ionic_native_splash_screen__["a" /* SplashScreen */],
-            __WEBPACK_IMPORTED_MODULE_19__providers_firebase_firebase__["a" /* FirebaseProvider */],
+            __WEBPACK_IMPORTED_MODULE_11__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_12__ionic_native_splash_screen__["a" /* SplashScreen */],
+            __WEBPACK_IMPORTED_MODULE_16__providers_firebase_firebase__["a" /* FirebaseProvider */],
             { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] },
-            __WEBPACK_IMPORTED_MODULE_20__providers_alert_creator_alert_creator__["a" /* AlertCreatorProvider */]
+            __WEBPACK_IMPORTED_MODULE_17__providers_alert_creator_alert_creator__["a" /* AlertCreatorProvider */]
         ]
     })
 ], AppModule);
@@ -504,106 +515,6 @@ MyApp = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export ShopItem */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShopListItem; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var ShopItem = (function () {
-    function ShopItem() {
-        this.name = "item name";
-        this.quantity = "quantity";
-        this.isCheck = false;
-    }
-    return ShopItem;
-}());
-
-var ShopListItem = (function () {
-    function ShopListItem() {
-        this.title = "title";
-    }
-    return ShopListItem;
-}());
-ShopListItem = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/assets/class/shopList-item.html"*/'<button ion-item>\n  {{ title }}\n</button>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/assets/class/shopList-item.html"*/
-    })
-], ShopListItem);
-
-//# sourceMappingURL=shopList-item.js.map
-
-/***/ }),
-
-/***/ 403:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MemoItem; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var MemoItem = (function () {
-    function MemoItem() {
-        this.title = "debug";
-    }
-    return MemoItem;
-}());
-MemoItem = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/assets/class/memo-item.html"*/'<button ion-item>\n  {{ title }}\n</button>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/assets/class/memo-item.html"*/
-    })
-], MemoItem);
-
-//# sourceMappingURL=memo-item.js.map
-
-/***/ }),
-
-/***/ 404:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CommentaryItem; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var CommentaryItem = (function () {
-    function CommentaryItem() {
-    }
-    return CommentaryItem;
-}());
-CommentaryItem = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'commentary',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/assets/class/commentary-item.html"*/'<p>test</p>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/assets/class/commentary-item.html"*/
-    }),
-    __metadata("design:paramtypes", [])
-], CommentaryItem);
-
-//# sourceMappingURL=commentary-item.js.map
-
-/***/ }),
-
-/***/ 405:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AlertCreatorProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(111);
@@ -680,13 +591,17 @@ var FirebaseProvider = (function () {
         if (path === void 0) { path = "/"; }
         return this.afd.list(path);
     };
+    FirebaseProvider.prototype.getObject = function (path) {
+        if (path === void 0) { path = "/"; }
+        return this.afd.object(path);
+    };
     FirebaseProvider.prototype.addItem = function (name, path) {
         if (path === void 0) { path = "/"; }
-        this.afd.list(path).push(name);
+        return (this.afd.list(path).push(name));
     };
     FirebaseProvider.prototype.removeItem = function (id, path) {
         if (path === void 0) { path = "/"; }
-        this.afd.list(path).remove(id);
+        return (this.afd.list(path).remove(id));
     };
     return FirebaseProvider;
 }());
@@ -730,19 +645,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var ShopListPage = (function () {
     function ShopListPage(navCtrl, navParams, alertCtrl, modalCtrl, firebaseProvider) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.alertCtrl = alertCtrl;
         this.modalCtrl = modalCtrl;
         this.firebaseProvider = firebaseProvider;
-        this.localShopLists = [
-            { key: "test" },
-            { key: "test2" }
-        ];
-        this.listIsLoad = false;
         this.shopLists = this.firebaseProvider.getItems("shop-list");
-        this.shopLists.subscribe(function () { return _this.listIsLoad = true; });
     }
     ShopListPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ShopListPage');
@@ -767,8 +675,13 @@ var ShopListPage = (function () {
                 {
                     text: 'Créer la liste',
                     handler: function (data) {
-                        console.log(data);
-                        _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */], { title: data.title, newList: true });
+                        _this.firebaseProvider.addItem({ title: data.title }, "shop-list/")
+                            .then(function (data) {
+                            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */], data.key);
+                        })
+                            .catch(function (error) {
+                            console.error("An error ocured when creating new shop-list", error);
+                        });
                     }
                 }
             ]
@@ -776,17 +689,14 @@ var ShopListPage = (function () {
         prompt.present();
     };
     ShopListPage.prototype.openShopList = function (shop_list) {
-        if (shop_list.key)
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */], shop_list.key);
-        else
-            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */], shop_list.$key);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__["a" /* ShopListDescriptionPage */], shop_list.$key);
     };
     return ShopListPage;
 }());
 ShopListPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/'<!--\n  Generated template for the ShopListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button icon-only menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>shop_list</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-list >\n    <div *ngIf="listIsLoad">\n      <button ion-item *ngFor="let item of shopLists | async" (click)="openShopList(item)">\n	{{ item.$key }}\n      </button>\n    </div>\n    <div *ngIf="!listIsLoad">\n      <button ion-item *ngFor="let item of localShopLists" (click)="openShopList(item)">\n	{{ item.key }}\n      </button>\n    </div>\n    <button ion-item (click)="promptNewTitle()">\n      Ajouter une nouvelle liste\n    </button>\n    <shop-list></shop-list>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/,
+        selector: 'page-shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/'<!--\n  Generated template for the ShopListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button icon-only menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>shop_list</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-list >\n    <button ion-item *ngFor="let item of shopLists | async" (click)="openShopList(item)">\n      {{ item.title }}\n    </button>\n    <button ion-item (click)="promptNewTitle()">\n      <ion-icon name="add"></ion-icon>\n      Ajouter une nouvelle liste\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],
@@ -827,18 +737,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  */
 var MemoPage = (function () {
     function MemoPage(navCtrl, navParams, alertCtrl, firebaseProvider) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.alertCtrl = alertCtrl;
         this.firebaseProvider = firebaseProvider;
-        this.localList = [
-            { key: "1", title: "titre", content: "content" },
-            { key: "2", title: "titre2", content: "content2" }
-        ];
-        this.listIsLoad = false;
         this.list = this.firebaseProvider.getItems("memo");
-        this.list.subscribe(function () { return _this.listIsLoad = true; });
     }
     MemoPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad MemoPage');
@@ -871,7 +774,7 @@ var MemoPage = (function () {
 MemoPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/'<!--\n  Generated template for the MemoPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Mémos</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list >\n    <div *ngIf="listIsLoad">\n      <button ion-item *ngFor="let item of lists | async">\n	{{ item.title }}\n      </button>\n    </div>\n    <div *ngIf="!listIsLoad">\n      <button ion-item *ngFor="let item of localList">\n	{{ item.title }}\n      </button>\n    </div>\n    <memo *ngFor="let item of localList"></memo>\n    <button ion-item (click)="promptNewTitle()">\n      Ajouter une nouvelle liste\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/,
+        selector: 'page-memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/'<!--\n  Generated template for the MemoPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Mémos</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <button ion-item *ngFor="let item of list | async">\n      {{ item.title }}\n    </button>\n    <button ion-item (click)="promptNewTitle()" icon-start>\n      <ion-icon name="add"></ion-icon>\n      Ajouter une nouvelle liste\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],

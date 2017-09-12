@@ -13,13 +13,17 @@ export class FirebaseProvider {
     getItems(path = "/") {
 	return this.afd.list(path);
     }
+
+    getObject(path= "/") {
+	return this.afd.object(path);
+    }
     
     addItem(name, path = "/") {
-	this.afd.list(path).push(name);
+	return (this.afd.list(path).push(name));
     }
 
     removeItem(id, path = "/") {
-	this.afd.list(path).remove(id);
+	return (this.afd.list(path).remove(id));
     }
 
 }

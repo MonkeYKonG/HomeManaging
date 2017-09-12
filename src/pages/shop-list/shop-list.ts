@@ -21,22 +21,14 @@ import { ShopListDescriptionPage } from './subpages/shop-list-description';
   templateUrl: 'shop-list.html',
 })
 export class ShopListPage {
-
     shopLists: FirebaseListObservable<any[]>;
-    localShopLists = [
-	{key: "test"},
-	{key: "test2"}
-    ];
-    listIsLoad: boolean;
     
     constructor(public navCtrl: NavController,
 		public navParams: NavParams,
 		public alertCtrl: AlertController,
 		public modalCtrl: ModalController,
 		public firebaseProvider: FirebaseProvider) {
-	this.listIsLoad = false;
 	this.shopLists = this.firebaseProvider.getItems("shop-list");
-	this.shopLists.subscribe(() => this.listIsLoad = true);
     }
     
     ionViewDidLoad() {
@@ -63,8 +55,13 @@ export class ShopListPage {
 		{
 		    text: 'Créer la liste',
 		    handler: data => {
-			console.log(data);
-			this.navCtrl.push(ShopListDescriptionPage, {title: data.title, newList: true});
+			this.firebaseProvider.addItem({title: data.title}, "shop-list/")
+			    .then(data => {
+				this.navCtrl.push(ShopListDescriptionPage, data.key);
+			    })
+			    .catch (error => {
+				console.error("An error ocured when creating new shop-list", error);
+			    });
 		    }           
 		}	      
 	    ]
@@ -73,9 +70,6 @@ export class ShopListPage {
     }
 
     openShopList(shop_list) {
-	if (shop_list.key)
-	    this.navCtrl.push(ShopListDescriptionPage, shop_list.key);
-	else
-	    this.navCtrl.push(ShopListDescriptionPage, shop_list.$key);
+	this.navCtrl.push(ShopListDescriptionPage, shop_list.$key);
     }
 }
