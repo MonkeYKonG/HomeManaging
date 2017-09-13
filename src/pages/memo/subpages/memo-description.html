@@ -7,36 +7,25 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>shop_list</ion-title>
+    <ion-title> {{ (data | async)?.title }} </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <h2> {{ title }} </h2>
+<ion-content>
   <ion-card>
-    <ion-list>
-      <ion-list-header>
-	Liste de course
-      </ion-list-header>
-      <ion-item *ngFor="let item of test">
-	<ion-label>{{ item.name }}: x{{ item.quantity }}</ion-label>
-	<ion-checkbox value="secondary" checked="false"></ion-checkbox>
-      </ion-item>
-    </ion-list>
+    <ion-card-header>
+      Description du memo:
+    </ion-card-header>
+    <ion-textarea [(ngModel)]="text" placeholder="Description">     
+    </ion-textarea>
   </ion-card>
   <ion-card>
-    <ion-list>
-      <ion-list-header>
-	Commentaires
-      </ion-list-header>
-      <ion-card *ngFor="let comment of commentary | async">
-	<ion-card-header>
-	  {{ comment.author }} le {{ comment.date }}
-	</ion-card-header>
-	{{ comment.text }}
-      </ion-card>
-    </ion-list>
+    <ion-card-header>
+      Corp du memo
+    </ion-card-header>
+    <ion-textarea (focusout)="test()" placeholder="Corp du memo">
+    </ion-textarea>
   </ion-card>
 </ion-content>

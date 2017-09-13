@@ -35,10 +35,6 @@ export class ShopListPage {
 	console.log('ionViewDidLoad ShopListPage');
     }
     
-    removeItem(id) {
-	this.firebaseProvider.removeItem(id);
-    }
-
     promptNewTitle() {
 	let prompt = this.alertCtrl.create({
 	    title: 'Nouvelle liste',
@@ -55,7 +51,8 @@ export class ShopListPage {
 		{
 		    text: 'Créer la liste',
 		    handler: data => {
-			this.firebaseProvider.addItem({title: data.title}, "shop-list/")
+			if (data.title)
+			    this.firebaseProvider.addItem({title: data.title}, "shop-list/")
 			    .then(data => {
 				this.navCtrl.push(ShopListDescriptionPage, data.key);
 			    })
@@ -71,5 +68,9 @@ export class ShopListPage {
 
     openShopList(shop_list) {
 	this.navCtrl.push(ShopListDescriptionPage, shop_list.$key);
+    }
+
+    deleteList(item) {
+	this.firebaseProvider.removeItem(item.$key, "shop-list/");
     }
 }

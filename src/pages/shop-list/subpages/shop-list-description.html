@@ -1,4 +1,4 @@
-x<!--
+<!--
   Generated template for the ShopListDescriptionPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
@@ -7,7 +7,9 @@ x<!--
 <ion-header>
 
   <ion-navbar>
-    <ion-title>shop_list</ion-title>
+    <ion-title>
+      {{ (data | async)?.title }}
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,28 +17,42 @@ x<!--
 
 <ion-content padding>
   <h2>
-    {{ (data | async)?.title }}
+    <ion-row>
+      {{ (data | async)?.title }}
+      <button ion-button icon-only small (click)="updateTitle(data)">
+	<ion-icon name="hammer">
+	</ion-icon>
+      </button>
+    </ion-row>
   </h2>
   <ion-card>
     <ion-card-header>
-      <ion-row>
-	<ion-col>
-	  Liste de course
-	</ion-col>
-	<ion-col col-auto>
-	  <button ion-button icon-only small (click)="addNewItem()">
-	    <ion-icon name="add"></ion-icon>
-	  </button>
-	</ion-col>
-      </ion-row>
+      <ion-item>
+	<button ion-button icon-only small (click)="addNewItem()">
+	  <ion-icon name="add"></ion-icon>
+	</button>
+	Liste de course
+      </ion-item>
     </ion-card-header>
     <ion-list>
       <ion-item *ngFor="let item of items | async">
 	<ion-label>
 	  {{ item.name }}  x{{ item.quantity }}
+	  <ion-buttons end>
+	    <button ion-button icon-only small (click)="addNewItem(item)">
+	      <ion-icon name="hammer">
+	      </ion-icon>
+	    </button>
+	    <button ion-button icon-only small (click)="removeItem(item)">
+	      <ion-icon name="trash">
+	      </ion-icon>
+	    </button>
+	  </ion-buttons>
 	</ion-label>
-	<ion-checkbox [(ngModel)]="item.isCheck" (click)="updateItem(item, 'items/')"></ion-checkbox>
+	<ion-checkbox [(ngModel)]="item.isCheck" (click)="updateItem(item, 'items/')">
+	</ion-checkbox>
       </ion-item>
+      
     </ion-list>
   </ion-card>
   <ion-card>

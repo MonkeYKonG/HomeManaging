@@ -1,5 +1,8 @@
+import { FirebaseProvider } from './../../../providers/firebase/firebase';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
+import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
 /**
  * Generated class for the ShopListPage page.
@@ -14,29 +17,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'memo-description.html',
 })
 export class MemoDescriptionPage {
-
-    title: string;
-
-    //DEBUG
-    localCommentary = [
-	{name: "banane", quantity: 4, isCheck: true},
-	{name: "chocolat", quantity: 12, isCheck: false}
-    ];
-    localText = [
-	{author: "Alexis", date: "Ven 8 sept", text: "prendre un gros paquet de tresor"},
-	{author: "Justine", date: "Jeu 7 sept", text: "je sais pas quoi mettre"}
-    ]
+    rootPath: string;
+    data: FirebaseObjectObservable<any[]>;
+    text: string;
 
     constructor(public navCtrl: NavController,
-		public navParams: NavParams) {
-	this.title = navParams.data;
+		public navParams: NavParams,
+		public firebaseProvider: FirebaseProvider) {
+	this.rootPath = "memo/" + navParams.data + "/";
+	this.data = this.firebaseProvider.getObject(this.rootPath);
     }
     
     ionViewDidLoad() {
 	console.log('ionViewDidLoad CreateMemoPage');
     }
 
-    createNewMemo() {
-	
+    test() {
+	console.log("test");
     }
 }

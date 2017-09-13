@@ -36,17 +36,47 @@ export class ShopListDescriptionPage {
 	console.log('ionViewDidLoad CreateShopListPage');
     }
 
-    addNewItem() {
+    updateTitle() {
+	let prompt = this.alertCtrl.create({
+	    title: 'Nouveau titre',
+	    inputs: [
+		{
+		    name: 'title',
+		    placeholder: 'Titre'
+		}
+	    ],
+	    buttons: [
+		{
+		    text: 'Annuler'
+		},
+		{
+		    text: 'Mettre à jour',
+		    handler: data => {
+			if (data.title) {
+			    this.updateValue(data.title, "title");
+			    console.log(this.data);
+			}
+		    }
+		}
+	    ]
+	});
+	prompt.present();
+    }
+
+    addNewItem(item = null) {
+	var name = item == null ? "" : item.name;
+	var quantity = item == null ? "1" : item.quantity;
 	let prompt = this.alertCtrl.create({
 	    title: 'Nouvelle article',
 	    inputs: [
 		{
 		    name: 'name',
+		    value: name,
 		    placeholder: 'Nom de l\'article'
 		},
 		{
 		    name: 'quantity',
-		    value: '1',
+		    value: quantity,
 		    type: 'number'
 		}
 	    ],
@@ -57,8 +87,15 @@ export class ShopListDescriptionPage {
 		{
 		    text: 'Ajouter à la liste',
 		    handler: data => {
-			if (data.name)
-			    this.firebaseProvider.addItem({name: data.name, quantity: data.quantity, isCheck: false}, this.rootPath + "items");
+			if (data.name){
+			    if (item == null)
+				this.firebaseProvider.addItem({name: data.name, quantity: data.quantity, isCheck: false}, this.rootPath + "items");
+			    else {
+				item.name = data.name;
+				item.quantity = data.quantity;
+				this.updateItem(item, "items/");
+			    }
+			}
 		    }           
 		}	      
 	    ]
@@ -67,8 +104,25 @@ export class ShopListDescriptionPage {
     }
 
     updateItem(item, repository) {
-	console.log(item);
 	var dataItems = this.firebaseProvider.getObject(this.rootPath + repository + item.$key);
-	dataItems.subscribe(() => dataItems.update(item));
+	var dataSubscription = dataItems.subscribe(() => {
+	    dataItems.update(item)
+		.then(() => dataSubscription.unsubscribe());
+	});
+    }
+
+    updateValue(value, repository) {
+	var dataItems = this.firebaseProvider.getObject(this.rootPath);
+	var updateObj = {};
+
+	updateObj[repository] = value;
+	var dataSubscription = dataItems.subscribe(() => {
+	    dataItems.update(updateObj)
+		.then(() => dataSubscription.unsubscribe());
+	});
+    }
+    
+    removeItem(item) {
+	this.firebaseProvider.removeItem(item.$key, this.rootPath + "items");
     }
 }

@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { MemoItem } from './../../assets/class/memo-item';
+import { MemoDescriptionPage } from './subpages/memo-description';
 
 import { FirebaseListObservable } from 'angularfire2/database';
 
@@ -49,12 +50,20 @@ export class MemoPage {
 		{
 		    text: 'Créer le mémo',
 		    handler: data => {
-			console.log(data);
+			if (data.title)
+			    this.firebaseProvider.addItem({title: data.title}, "memo/")
+			    .then(snapshot => {
+				this.navCtrl.push(MemoDescriptionPage, snapshot.key);
+			    })
 		    }           
 		}	      
 	    ]
 	});
 	prompt.present();
+    }
+
+    openMemoDescription(item) {
+	this.navCtrl.push(MemoDescriptionPage, item.$key);
     }
     
 }

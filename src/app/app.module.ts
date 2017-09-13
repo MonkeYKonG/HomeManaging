@@ -9,6 +9,7 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { ShopListPage } from '../pages/shop-list/shop-list';
 import { ShopListDescriptionPage } from '../pages/shop-list/subpages/shop-list-description';
 import { MemoPage } from '../pages/memo/memo';
+import { MemoDescriptionPage } from '../pages/memo/subpages/memo-description';
 import { MessagesPage } from '../pages/messages/messages'
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -38,6 +39,7 @@ const firebaseConfig = {
 	ShopListPage,
 	ShopListDescriptionPage,
 	MemoPage,
+	MemoDescriptionPage,
 	MessagesPage
     ],
     imports: [
@@ -56,6 +58,7 @@ const firebaseConfig = {
 	ShopListPage,
 	ShopListDescriptionPage,
 	MemoPage,
+	MemoDescriptionPage,
 	MessagesPage
     ],
     providers: [

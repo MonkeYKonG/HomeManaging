@@ -21,9 +21,9 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of list | async">
+    <button ion-item *ngFor="let item of list | async" (click)="openMemoDescription(item)">
       {{ item.title }}
     </button>
     <button ion-item (click)="promptNewTitle()" icon-start>

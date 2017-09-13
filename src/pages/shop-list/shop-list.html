@@ -23,9 +23,14 @@
 
 <ion-content>
   <ion-list >
-    <button ion-item *ngFor="let item of shopLists | async" (click)="openShopList(item)">
-      {{ item.title }}
-    </button>
+    <ion-item-sliding *ngFor="let item of shopLists | async">
+      <button ion-item (click)="openShopList(item)">
+	{{ item.title }}
+      </button>
+      <ion-item-options>
+	<button ion-button expandable (click)="deleteList(item)">Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
     <button ion-item (click)="promptNewTitle()">
       <ion-icon name="add"></ion-icon>
       Ajouter une nouvelle liste
