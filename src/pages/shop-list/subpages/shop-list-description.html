@@ -10,59 +10,43 @@
     <ion-title>
       {{ (data | async)?.title }}
     </ion-title>
+    <ion-buttons end>
+      <button ion-button color="dark" clear (click)="updateTitle(data)" icon-only>
+	<ion-icon name="md-create"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <h2>
-      {{ (data | async)?.title }}
-    </h2>
-    <button ion-button color="dark" clear (click)="updateTitle(data)" icon-only style="float: right;">
-      <ion-icon name="md-create"></ion-icon>
-    </button>
-  <ion-card>
-    <ion-card-header>	
+  <h2>
+    {{ (data | async)?.title }}
+  </h2>
+  <ion-list>
+    <ion-list-header>	
       <button ion-button color="dark" clear (click)="addNewItem()" icon-left>
 	<ion-icon name="add"></ion-icon>
 	Liste de course
       </button>
-      
-      
-    </ion-card-header>
-    <ion-list>
-      <ion-item *ngFor="let item of items | async">
-	<ion-label>
-	  {{ item.name }}  x{{ item.quantity }}
-	  <ion-buttons end>
-	    <button ion-button Clear (click)="addNewItem(item)">
-	      <ion-icon name="md-create">
-	      </ion-icon>
-	    </button>
-	    <button ion-button icon-only small (click)="removeItem(item)">
-	      <ion-icon name="trash">
-	      </ion-icon>
-	    </button>
-	  </ion-buttons>
-	</ion-label>
-	<ion-checkbox [(ngModel)]="item.isCheck" (click)="updateItem(item, 'items/')">
-	</ion-checkbox>
-      </ion-item>
-      
-    </ion-list>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      Commentaires
-    </ion-card-header>
-    <ion-item *ngFor="let comment of commentary | async">
-      <h2>
-	{{ comment.author }} le {{ comment.date }}
-      </h2>
-      <p>
-	{{ comment.text }}
-      </p>
+    </ion-list-header>
+    <ion-item *ngFor="let item of items | async">
+      <ion-label>
+	{{ item.name }}  x{{ item.quantity }}
+      </ion-label>
+      <div item-right>
+	<button ion-button color="dark" clear (click)="addNewItem(item)">
+	  <ion-icon name="md-create">
+	  </ion-icon>
+	</button>
+	<button ion-button color="dark" clear (click)="removeItem(item)">
+	  <ion-icon name="trash">
+	  </ion-icon>
+	</button>
+      </div>
+      <ion-checkbox [(ngModel)]="item.isCheck" (ionChange)='updateItem(item, "items/")'></ion-checkbox>
     </ion-item>
-  </ion-card>
+    
+  </ion-list>
 </ion-content>

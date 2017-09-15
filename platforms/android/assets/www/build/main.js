@@ -104,7 +104,6 @@ var ShopListDescriptionPage = (function () {
                     handler: function (data) {
                         if (data.title) {
                             _this.updateValue(data.title, "title");
-                            console.log(_this.data);
                         }
                     }
                 }
@@ -177,7 +176,7 @@ var ShopListDescriptionPage = (function () {
 ShopListDescriptionPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-shop-list-description',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>\n      {{ (data | async)?.title }}\n    </ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2>\n    <ion-row>\n      {{ (data | async)?.title }}\n      <button ion-button icon-only small (click)="updateTitle(data)">\n	<ion-icon name="hammer">\n	</ion-icon>\n      </button>\n    </ion-row>\n  </h2>\n  <ion-card>\n    <ion-card-header>\n      <ion-item>\n	<button ion-button icon-only small (click)="addNewItem()">\n	  <ion-icon name="add"></ion-icon>\n	</button>\n	Liste de course\n      </ion-item>\n    </ion-card-header>\n    <ion-list>\n      <ion-item *ngFor="let item of items | async">\n	<ion-label>\n	  {{ item.name }}  x{{ item.quantity }}\n	  <ion-buttons end>\n	    <button ion-button icon-only small (click)="addNewItem(item)">\n	      <ion-icon name="hammer">\n	      </ion-icon>\n	    </button>\n	    <button ion-button icon-only small (click)="removeItem(item)">\n	      <ion-icon name="trash">\n	      </ion-icon>\n	    </button>\n	  </ion-buttons>\n	</ion-label>\n	<ion-checkbox [(ngModel)]="item.isCheck" (click)="updateItem(item, \'items/\')">\n	</ion-checkbox>\n      </ion-item>\n      \n    </ion-list>\n  </ion-card>\n  <ion-card>\n    <ion-card-header>\n      Commentaires\n    </ion-card-header>\n    <ion-item *ngFor="let comment of commentary | async">\n      <h2>\n	{{ comment.author }} le {{ comment.date }}\n      </h2>\n      <p>\n	{{ comment.text }}\n      </p>\n    </ion-item>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/,
+        selector: 'page-shop-list-description',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>\n      {{ (data | async)?.title }}\n    </ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <h2>\n      {{ (data | async)?.title }}\n    </h2>\n    <button ion-button color="dark" clear (click)="updateTitle(data)" icon-only style="float: right;">\n      <ion-icon name="md-create"></ion-icon>\n    </button>\n  <ion-card>\n    <ion-card-header>	\n      <button ion-button color="dark" clear (click)="addNewItem()" icon-left>\n	<ion-icon name="add"></ion-icon>\n	Liste de course\n      </button>\n      \n      \n    </ion-card-header>\n    <ion-list>\n      <ion-item *ngFor="let item of items | async">\n	<ion-label>\n	  {{ item.name }}  x{{ item.quantity }}\n	  <ion-buttons end>\n	    <button ion-button Clear (click)="addNewItem(item)">\n	      <ion-icon name="md-create">\n	      </ion-icon>\n	    </button>\n	    <button ion-button icon-only small (click)="removeItem(item)">\n	      <ion-icon name="trash">\n	      </ion-icon>\n	    </button>\n	  </ion-buttons>\n	</ion-label>\n	<ion-checkbox [(ngModel)]="item.isCheck" (click)="updateItem(item, \'items/\')">\n	</ion-checkbox>\n      </ion-item>\n      \n    </ion-list>\n  </ion-card>\n  <ion-card>\n    <ion-card-header>\n      Commentaires\n    </ion-card-header>\n    <ion-item *ngFor="let comment of commentary | async">\n      <h2>\n	{{ comment.author }} le {{ comment.date }}\n      </h2>\n      <p>\n	{{ comment.text }}\n      </p>\n    </ion-item>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],
@@ -216,28 +215,66 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * on Ionic pages and navigation.
  */
 var MemoDescriptionPage = (function () {
-    function MemoDescriptionPage(navCtrl, navParams, firebaseProvider) {
+    function MemoDescriptionPage(navCtrl, navParams, alertCtrl, firebaseProvider) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.alertCtrl = alertCtrl;
         this.firebaseProvider = firebaseProvider;
         this.rootPath = "memo/" + navParams.data + "/";
         this.data = this.firebaseProvider.getObject(this.rootPath);
+        this.data.subscribe(function (snapshot) {
+            _this.title = snapshot.title;
+            _this.text = snapshot.text;
+            _this.description = snapshot.description;
+        });
     }
     MemoDescriptionPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad CreateMemoPage');
     };
-    MemoDescriptionPage.prototype.test = function () {
-        console.log("test");
+    MemoDescriptionPage.prototype.publishTextUpdate = function () {
+        this.data.update({ "text": this.text });
+    };
+    MemoDescriptionPage.prototype.publishDescriptionUpdate = function () {
+        this.data.update({ "description": this.description });
+    };
+    MemoDescriptionPage.prototype.promptNewTitle = function () {
+        var _this = this;
+        var prompt = this.alertCtrl.create({
+            title: 'Nouveau titre',
+            inputs: [
+                {
+                    name: 'title',
+                    placeholder: 'Titre',
+                    value: this.title
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Annuler'
+                },
+                {
+                    text: 'Mettre à jour',
+                    handler: function (data) {
+                        if (data.title && data.title != _this.title) {
+                            _this.data.update({ "title": data.title });
+                        }
+                    }
+                }
+            ]
+        });
+        prompt.present();
     };
     return MemoDescriptionPage;
 }());
 MemoDescriptionPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/subpages/memo-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title> {{ (data | async)?.title }} </ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-card>\n    <ion-card-header>\n      Description du memo:\n    </ion-card-header>\n    <ion-textarea [(ngModel)]="decription" placeholder="Description">     \n    </ion-textarea>\n  </ion-card>\n  <ion-card>\n    <ion-card-header>\n      Corp du memo\n    </ion-card-header>\n    <ion-textarea [(ngModel)]="text" (focusout)="test()" placeholder="Corp du memo">\n    </ion-textarea>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/subpages/memo-description.html"*/,
+        selector: 'page-memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/subpages/memo-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title> {{ (data | async)?.title }} </ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="md-create">\n	</ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-card>\n    <ion-card-header>\n      Description du memo:\n    </ion-card-header>\n    <ion-textarea [(ngModel)]="description" (focusout)="publishDescriptionUpdate()" placeholder="Description">     \n    </ion-textarea>\n  </ion-card>\n  <ion-card>\n    <ion-card-header>\n      Corp du memo\n    </ion-card-header>\n    <ion-textarea [(ngModel)]="text" (focusout)="publishTextUpdate()" placeholder="Corp du memo">\n    </ion-textarea>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/subpages/memo-description.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */],
         __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]])
 ], MemoDescriptionPage);
 
@@ -811,7 +848,7 @@ var ShopListPage = (function () {
 ShopListPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/'<!--\n  Generated template for the ShopListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button icon-only menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>shop_list</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-list >\n    <ion-item-sliding *ngFor="let item of shopLists | async">\n      <button ion-item (click)="openShopList(item)">\n	{{ item.title }}\n      </button>\n      <ion-item-options>\n	<button ion-button expandable (click)="deleteList(item)">Delete</button>\n      </ion-item-options>\n    </ion-item-sliding>\n    <button ion-item (click)="promptNewTitle()">\n      <ion-icon name="add"></ion-icon>\n      Ajouter une nouvelle liste\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/,
+        selector: 'page-shop-list',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/'<!--\n  Generated template for the ShopListPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button icon-only menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>shop_list</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-list >\n    <ion-item-sliding *ngFor="let item of shopLists | async">\n      <button ion-item (click)="openShopList(item)">\n	{{ item.title }}\n      </button>\n      <ion-item-options>\n	<button ion-button expandable (click)="deleteList(item)">Supprimer</button>\n      </ion-item-options>\n    </ion-item-sliding>\n    <button ion-item (click)="promptNewTitle()">\n      <ion-icon name="add"></ion-icon>\n      Ajouter une nouvelle liste\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/shop-list.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],
@@ -894,12 +931,15 @@ var MemoPage = (function () {
     MemoPage.prototype.openMemoDescription = function (item) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__subpages_memo_description__["a" /* MemoDescriptionPage */], item.$key);
     };
+    MemoPage.prototype.deleteMemo = function (item) {
+        this.firebaseProvider.removeItem(item.$key, "memo/");
+    };
     return MemoPage;
 }());
 MemoPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/'<!--\n  Generated template for the MemoPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Mémos</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-list>\n    <button ion-item *ngFor="let item of list | async" (click)="openMemoDescription(item)">\n      {{ item.title }}\n    </button>\n    <button ion-item (click)="promptNewTitle()" icon-start>\n      <ion-icon name="add"></ion-icon>\n      Ajouter une nouvelle liste\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/,
+        selector: 'page-memo',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/'<!--\n  Generated template for the MemoPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Mémos</ion-title>\n    <ion-buttons end>\n      <button ion-button icon-only (click)="promptNewTitle()">\n	<ion-icon name="add"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-list>\n    <ion-item-sliding *ngFor="let item of list | async">\n      <button ion-item (click)="openMemoDescription(item)">\n	{{ item.title }}\n      </button>\n      <ion-item-options>\n	<button ion-button expandable (click)="deleteMemo(item)">Supprimer</button>\n      </ion-item-options>\n    </ion-item-sliding>\n    <button ion-item (click)="promptNewTitle()" icon-start>\n      <ion-icon name="add"></ion-icon>\n      Ajouter une nouvelle liste\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/memo/memo.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
         __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],

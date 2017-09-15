@@ -24,14 +24,14 @@
     <ion-card-header>
       Description du memo:
     </ion-card-header>
-    <ion-textarea [(ngModel)]="description" (focusout)="publishDescriptionUpdate()" placeholder="Description">     
+    <ion-textarea [(ngModel)]="description" (focusout)="publishDescriptionUpdate()" placeholder="Description" rows="6">     
     </ion-textarea>
   </ion-card>
   <ion-card>
     <ion-card-header>
       Corp du memo
     </ion-card-header>
-    <ion-textarea [(ngModel)]="text" (focusout)="publishTextUpdate()" placeholder="Corp du memo">
+    <ion-textarea [(ngModel)]="text" (focusout)="publishTextUpdate()" placeholder="Corp du memo" rows="6">
     </ion-textarea>
   </ion-card>
 </ion-content>

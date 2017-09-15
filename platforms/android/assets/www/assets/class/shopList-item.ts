@@ -8,10 +8,6 @@ export class ShopItem {
     isCheck: boolean = false;
 }
 
-@Component({
-    selector: 'shop-list',
-    templateUrl: 'shopList-item.html'
-})
 export class ShopListItem {
     title: string = "title";
     commentarys: CommentaryItem[];

@@ -2,6 +2,7 @@ import { FirebaseProvider } from './../../../providers/firebase/firebase';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
+import { ShopListItem, ShopItem } from './../../../assets/class/shopList-item';
 import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 
 /**
@@ -18,10 +19,10 @@ import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/d
 })
 export class ShopListDescriptionPage {
     rootPath: string;
-    data: FirebaseObjectObservable<any[]>;
+    data: FirebaseObjectObservable<ShopListItem>;
     items: FirebaseListObservable<any[]>;
     commentary: FirebaseListObservable<any[]>;
-    
+
     constructor(public navCtrl: NavController,
 		public navParams: NavParams,
 		public alertCtrl: AlertController,
@@ -104,7 +105,8 @@ export class ShopListDescriptionPage {
 
     updateItem(item, repository) {
 	var dataItems = this.firebaseProvider.getObject(this.rootPath + repository + item.$key);
-	var dataSubscription = dataItems.subscribe(() => {
+
+	var dataSubscription = dataItems.subscribe(snapshot => {
 	    dataItems.update(item)
 		.then(() => dataSubscription.unsubscribe());
 	});
