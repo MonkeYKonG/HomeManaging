@@ -23,9 +23,14 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let item of list | async" (click)="openMemoDescription(item)">
-      {{ item.title }}
-    </button>
+    <ion-item-sliding *ngFor="let item of list | async">
+      <button ion-item (click)="openMemoDescription(item)">
+	{{ item.title }}
+      </button>
+      <ion-item-options>
+	<button ion-button expandable (click)="deleteMemo(item)">Supprimer</button>
+      </ion-item-options>
+    </ion-item-sliding>
     <button ion-item (click)="promptNewTitle()" icon-start>
       <ion-icon name="add"></ion-icon>
       Ajouter une nouvelle liste

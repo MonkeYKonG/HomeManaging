@@ -8,6 +8,12 @@
 
   <ion-navbar>
     <ion-title> {{ (data | async)?.title }} </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="promptNewTitle()">
+	<ion-icon name="md-create">
+	</ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -18,14 +24,14 @@
     <ion-card-header>
       Description du memo:
     </ion-card-header>
-    <ion-textarea [(ngModel)]="text" placeholder="Description">     
+    <ion-textarea [(ngModel)]="description" (focusout)="publishDescriptionUpdate()" placeholder="Description">     
     </ion-textarea>
   </ion-card>
   <ion-card>
     <ion-card-header>
       Corp du memo
     </ion-card-header>
-    <ion-textarea (focusout)="test()" placeholder="Corp du memo">
+    <ion-textarea [(ngModel)]="text" (focusout)="publishTextUpdate()" placeholder="Corp du memo">
     </ion-textarea>
   </ion-card>
 </ion-content>

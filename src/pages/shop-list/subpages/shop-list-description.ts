@@ -54,7 +54,6 @@ export class ShopListDescriptionPage {
 		    handler: data => {
 			if (data.title) {
 			    this.updateValue(data.title, "title");
-			    console.log(this.data);
 			}
 		    }
 		}

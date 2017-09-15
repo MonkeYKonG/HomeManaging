@@ -65,5 +65,9 @@ export class MemoPage {
     openMemoDescription(item) {
 	this.navCtrl.push(MemoDescriptionPage, item.$key);
     }
+
+    deleteMemo(item) {
+	this.firebaseProvider.removeItem(item.$key, "memo/");
+    }
     
 }

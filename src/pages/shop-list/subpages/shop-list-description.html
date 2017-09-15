@@ -16,31 +16,28 @@
 
 
 <ion-content padding>
-  <h2>
-    <ion-row>
+    <h2>
       {{ (data | async)?.title }}
-      <button ion-button icon-only small (click)="updateTitle(data)">
-	<ion-icon name="hammer">
-	</ion-icon>
-      </button>
-    </ion-row>
-  </h2>
+    </h2>
+    <button ion-button color="dark" clear (click)="updateTitle(data)" icon-only style="float: right;">
+      <ion-icon name="md-create"></ion-icon>
+    </button>
   <ion-card>
-    <ion-card-header>
-      <ion-item>
-	<button ion-button icon-only small (click)="addNewItem()">
-	  <ion-icon name="add"></ion-icon>
-	</button>
+    <ion-card-header>	
+      <button ion-button color="dark" clear (click)="addNewItem()" icon-left>
+	<ion-icon name="add"></ion-icon>
 	Liste de course
-      </ion-item>
+      </button>
+      
+      
     </ion-card-header>
     <ion-list>
       <ion-item *ngFor="let item of items | async">
 	<ion-label>
 	  {{ item.name }}  x{{ item.quantity }}
 	  <ion-buttons end>
-	    <button ion-button icon-only small (click)="addNewItem(item)">
-	      <ion-icon name="hammer">
+	    <button ion-button Clear (click)="addNewItem(item)">
+	      <ion-icon name="md-create">
 	      </ion-icon>
 	    </button>
 	    <button ion-button icon-only small (click)="removeItem(item)">
