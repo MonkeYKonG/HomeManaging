@@ -17,5 +17,20 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item *ngFor="let message of messages | async" text-wrap>
+      <h1>{{ message.author }}</h1>
+      <ion-note item-end>{{ message.date }}</ion-note>
+      {{ message.text }}
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-input [(ngModel)]="curMessage" placeholder="Ecrire un message..."></ion-input>
+    <ion-buttons end>
+      <button ion-button (click)="sendMessage()">Envoyer</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

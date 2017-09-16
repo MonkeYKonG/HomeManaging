@@ -954,8 +954,9 @@ MemoPage = __decorate([
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MessagesPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -967,6 +968,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 /**
  * Generated class for the MessagesPage page.
  *
@@ -974,23 +976,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * on Ionic pages and navigation.
  */
 var MessagesPage = (function () {
-    function MessagesPage(navCtrl, navParams) {
+    function MessagesPage(navCtrl, navParams, firebaseProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.firebaseProvider = firebaseProvider;
+        this.messages = this.firebaseProvider.getItems("messages");
+        this.curMessage = "";
     }
     MessagesPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad MessagesPage');
     };
+    MessagesPage.prototype.sendMessage = function () {
+        var _this = this;
+        if (this.curMessage) {
+            this.firebaseProvider.addItem({
+                author: "auteur",
+                date: "date",
+                text: this.curMessage
+            }, "messages/").then(function () { return _this.curMessage = ""; });
+        }
+    };
     return MessagesPage;
 }());
 MessagesPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-messages',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/messages/messages.html"*/'<!--\n  Generated template for the MessagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>messages</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/messages/messages.html"*/,
+    Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
+    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
+        selector: 'page-messages',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/messages/messages.html"*/'<!--\n  Generated template for the MessagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>messages</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <ion-item *ngFor="let message of messages | async" text-wrap>\n      <h1>{{ message.author }}</h1>\n      <ion-note item-end>{{ message.date }}</ion-note>\n      {{ message.text }}\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-input [(ngModel)]="curMessage" placeholder="Ecrire un message..."></ion-input>\n    <ion-buttons end>\n      <button ion-button (click)="sendMessage()">Envoyer</button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/messages/messages.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]) === "function" && _c || Object])
 ], MessagesPage);
 
+var _a, _b, _c;
 //# sourceMappingURL=messages.js.map
 
 /***/ })
