@@ -50,7 +50,7 @@ CalendarPage = __decorate([
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShopListDescriptionPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -178,10 +178,12 @@ ShopListDescriptionPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
         selector: 'page-shop-list-description',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/'<!--\n  Generated template for the ShopListDescriptionPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>\n      {{ (data | async)?.title }}\n    </ion-title>\n    <ion-buttons end>\n      <button ion-button color="dark" clear (click)="updateTitle(data)" icon-only>\n	<ion-icon name="md-create"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h2>\n    {{ (data | async)?.title }}\n  </h2>\n  <ion-list>\n    <ion-list-header>	\n      <button ion-button color="dark" clear (click)="addNewItem()" icon-left>\n	<ion-icon name="add"></ion-icon>\n	Liste de course\n      </button>\n    </ion-list-header>\n    <ion-item *ngFor="let item of items | async">\n      <ion-label>\n	{{ item.name }}  x{{ item.quantity }}\n      </ion-label>\n      <div item-right>\n	<button ion-button color="dark" clear (click)="addNewItem(item)">\n	  <ion-icon name="md-create">\n	  </ion-icon>\n	</button>\n	<button ion-button color="dark" clear (click)="removeItem(item)">\n	  <ion-icon name="trash">\n	  </ion-icon>\n	</button>\n      </div>\n      <ion-checkbox [(ngModel)]="item.isCheck" (ionChange)=\'updateItem(item, "items/")\'></ion-checkbox>\n    </ion-item>\n    \n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/shop-list/subpages/shop-list-description.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]])
 ], ShopListDescriptionPage);
 
-var _a, _b, _c, _d;
 //# sourceMappingURL=shop-list-description.js.map
 
 /***/ }),
@@ -191,7 +193,7 @@ var _a, _b, _c, _d;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MemoDescriptionPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -485,7 +487,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__angular_http__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angularfire2_database__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_angularfire2__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_firebase_firebase__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_firebase_firebase__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_alert_creator_alert_creator__ = __webpack_require__(406);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -707,7 +709,7 @@ AlertCreatorProvider = __decorate([
 
 /***/ }),
 
-/***/ 56:
+/***/ 43:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -768,7 +770,7 @@ FirebaseProvider = __decorate([
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShopListPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__subpages_shop_list_description__ = __webpack_require__(142);
@@ -864,7 +866,7 @@ ShopListPage = __decorate([
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MemoPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__subpages_memo_description__ = __webpack_require__(143);
@@ -954,7 +956,7 @@ MemoPage = __decorate([
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MessagesPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -982,26 +984,33 @@ var MessagesPage = (function () {
         this.firebaseProvider = firebaseProvider;
         this.messages = this.firebaseProvider.getItems("messages");
         this.curMessage = "";
+        this.date = new Date();
     }
     MessagesPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad MessagesPage');
     };
     MessagesPage.prototype.sendMessage = function () {
         var _this = this;
+        var curDate = new Date().toDateString();
+        var curTime = new Date().toTimeString();
         if (this.curMessage) {
             this.firebaseProvider.addItem({
                 author: "auteur",
-                date: "date",
+                date: curDate,
+                hour: curTime,
                 text: this.curMessage
             }, "messages/").then(function () { return _this.curMessage = ""; });
         }
+    };
+    MessagesPage.prototype.removeMessage = function (message) {
+        this.firebaseProvider.removeItem(message.$key, "messages");
     };
     return MessagesPage;
 }());
 MessagesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
-        selector: 'page-messages',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/messages/messages.html"*/'<!--\n  Generated template for the MessagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>messages</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <ion-item *ngFor="let message of messages | async" text-wrap>\n      <h1>{{ message.author }}</h1>\n      <ion-note item-end>{{ message.date }}</ion-note>\n      {{ message.text }}\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-input [(ngModel)]="curMessage" placeholder="Ecrire un message..."></ion-input>\n    <ion-buttons end>\n      <button ion-button (click)="sendMessage()">Envoyer</button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/messages/messages.html"*/,
+        selector: 'page-messages',template:/*ion-inline-start:"/home/alexis/Perso/home/HomeManaging/src/pages/messages/messages.html"*/'<!--\n  Generated template for the MessagesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>messages</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <ion-item-sliding *ngFor="let message of messages | async" text-wrap>\n      <ion-item>\n	<h1>{{ message.author }}</h1>\n	<ion-note item-end *ngIf="message.date != date.toDateString()">\n	  {{ message.date }}\n	</ion-note>\n	<ion-note item-end *ngIf="message.date == date.toDateString()">\n	  {{ message.hour }}\n	</ion-note>\n	{{ message.text }}\n      </ion-item>\n      <ion-item-options>\n	<button ion-button (click)="removeMessage(message)">\n	  <ion-icon name="trash"></ion-icon>\n	</button>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar>\n    <ion-input [(ngModel)]="curMessage" placeholder="Ecrire un message..."></ion-input>\n    <ion-buttons end>\n      <button ion-button (click)="sendMessage()">Envoyer</button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"/home/alexis/Perso/home/HomeManaging/src/pages/messages/messages.html"*/,
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__providers_firebase_firebase__["a" /* FirebaseProvider */]) === "function" && _c || Object])
 ], MessagesPage);

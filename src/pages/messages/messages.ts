@@ -18,7 +18,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
   templateUrl: 'messages.html',
 })
 export class MessagesPage {
-
+    date: Date;
     messages: FirebaseListObservable<any[]>;
     curMessage: string;
 
@@ -27,6 +27,7 @@ export class MessagesPage {
 		public firebaseProvider: FirebaseProvider) {
 	this.messages = this.firebaseProvider.getItems("messages");
 	this.curMessage = "";
+	this.date = new Date();
   }
     
     ionViewDidLoad() {
@@ -34,15 +35,23 @@ export class MessagesPage {
     }
     
     sendMessage() {
+	var curDate = new Date().toDateString();
+	var curTime = new Date().toTimeString();
+	
 	if (this.curMessage){
 	    this.firebaseProvider.addItem(
 		{
 		    author: "auteur",
-		    date: "date",
+		    date: curDate,
+		    hour: curTime,
 		    text: this.curMessage
 		},
 		"messages/"
 	    ).then(() => this.curMessage = "");
 	}
-    }   
+    }
+
+    removeMessage(message) {
+	this.firebaseProvider.removeItem(message.$key, "messages");
+    }
 }

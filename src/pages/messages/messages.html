@@ -18,11 +18,23 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let message of messages | async" text-wrap>
-      <h1>{{ message.author }}</h1>
-      <ion-note item-end>{{ message.date }}</ion-note>
-      {{ message.text }}
-    </ion-item>
+    <ion-item-sliding *ngFor="let message of messages | async" text-wrap>
+      <ion-item>
+	<h1>{{ message.author }}</h1>
+	<ion-note item-end *ngIf="message.date != date.toDateString()">
+	  {{ message.date }}
+	</ion-note>
+	<ion-note item-end *ngIf="message.date == date.toDateString()">
+	  {{ message.hour }}
+	</ion-note>
+	{{ message.text }}
+      </ion-item>
+      <ion-item-options>
+	<button ion-button (click)="removeMessage(message)">
+	  <ion-icon name="trash"></ion-icon>
+	</button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
 
